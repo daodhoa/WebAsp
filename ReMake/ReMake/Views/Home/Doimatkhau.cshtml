@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "Doimatkhau";
+}
+
+<form class="form-horizontal">
+    <fieldset>
+        <!-- Form Name -->
+        <legend>Đổi mật khẩu</legend>
+        <!-- Password input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" >Mật khẩu cũ</label>
+            <div class="col-md-4">
+                <input id="piCurrPass" name="piCurrPass" type="password" placeholder="" class="form-control input-md" required="">
+
+            </div>
+        </div>
+        <!-- Password input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label"  >Mật khẩu mới</label>
+            <div class="col-md-4">
+                <input id="piNewPass" name="piNewPass" type="password" placeholder="" class="form-control input-md" required="">
+
+            </div>
+        </div>
+        <!-- Password input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" >Nhập lại mật khẩu</label>
+            <div class="col-md-4">
+                <input id="piNewPassRepeat" name="piNewPassRepeat" type="password" placeholder="" class="form-control input-md" required="">
+
+            </div>
+        </div>
+        <!-- Button (Double) -->
+        <div class="form-group">
+            <label class="col-md-4 control-label ></label>
+            <div class="col-md-8">
+                <button id="bCancel" name="bCancel" class="btn btn-danger">Hủy</button>
+                <button id="bGodkend" name="bGodkend" class="btn btn-success">Đổi mật khẩu</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+
+
+<script type="text/javascript">
+    $("#bGodkend").click(function (evt) {
+        var _oldpw = $("#piCurrPass").val();
+        var _newpw = $("#piNewPass").val();
+        var _repw = $("#piNewPassRepeat").val();
+
+        if (_oldpw == "") {
+            BootstrapDialog.alert('Bạn chưa nhập mật khẩu cũ');
+            return false;
+        }
+        if (_newpw == "") {
+            BootstrapDialog.alert('Bạn chưa nhập mật khẩu mới');
+            return false;
+        }
+        if (_repw == "") {
+            BootstrapDialog.alert('Bạn chưa nhập lại mật khẩu mới');
+            return false;
+        }
+        //goi API
+        $.post("/api/Hethongs/Doimatkhau?_oldpw="+ _oldpw).done(function (a) {
+            debugger; 
+        }).fail(function (a) {
+            debugger;
+            BootstrapDialog.alert( a.responseJSON.Message);
+
+        })
+
+    }); ///////////////////// 
+</script>
+
+
